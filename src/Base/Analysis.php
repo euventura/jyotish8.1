@@ -31,7 +31,99 @@ class Analysis
     {
         $this->setDataInstance($Data);
     }
+    
 
+
+
+     /**
+     * Get chara karaka.
+     * 
+     * @param bool $reverse
+     * @param string $system Jyotish system
+     * @return array
+     * @see Maharishi Parashara. Brihat Parashara Hora Shastra. Chapter 32, Verse 13-17.
+     * @see Maharishi Jaimini. Jaimini Upadesha Sutras. Chapter 1, Quarter 1, Verse 11-18
+     */
+    public function getCharaKarakaByKey($vargaData, $reverse = false, $system = Biblio::AUTHOR_JAIMINI)
+    {
+        $grahas = $this->getData()['graha'];
+        unset($grahas[Graha::KEY_KE]);
+        // unset($grahas[Graha::KEY_RA]);
+        switch ($system) {
+            case Biblio::AUTHOR_JAIMINI:
+            case Biblio::BOOK_US:
+                unset($grahas[Graha::KEY_RA]);
+                break;
+            case Biblio::AUTHOR_PARASHARA:
+            case Biblio::BOOK_BPHS:
+            default:
+                $grahas[Graha::KEY_RA]['degree'] = 30 - $grahas[Graha::KEY_RA]['degree'];
+        }
+
+        uasort($grahas, 
+            function ($d1, $d2) {
+                if ($d1['degree'] == $d2['degree']) {
+                    return 0;
+                } else {
+                    return ($d1['degree'] < $d2['degree']) ? 1 : -1;
+                }
+            }
+        );
+        
+        $karakas = Karaka::listKarakaKeys($system);
+        reset($karakas);
+        
+        $grahaKaraka = [];
+        foreach ($grahas as $key => $data) {
+            $grahaKaraka[$key] = current($karakas);
+            next($karakas);
+        }
+        $graha_map = [
+            "Sy" => "Su",
+            "Ch" => "Mo",
+            "Bu" => "Me",
+            "Sk" => "Ve",
+            "Gu" => "Ju"
+          ];
+
+        $result = $this->mapKarakaKeys($grahaKaraka, $graha_map);
+        if ($reverse) {
+            // return array_flip($result);
+            return $this->mapKarakaToGraha(array_flip($result), $vargaData);
+        } else {
+            return $this->mapKarakaToGraha($result, $vargaData);
+            // return $result;
+        }
+    }
+
+    public function mapKarakaToGraha($karakaMapping, $grahaData) {
+        foreach($grahaData as $planet => &$data) {
+            // Check if there's a mapping for this planet
+            if(isset($karakaMapping[$planet])) {
+                // Add the karaka key to the graha data
+                $data['karaka'] = $karakaMapping[$planet];
+            }
+        }
+        return $grahaData;
+    }
+
+    private function mapKarakaKeys($originalMapping, $planetMapping) {
+        $mappedKeys = [];
+    
+        foreach($originalMapping as $planet => $karaka) {
+            // Check if there's a mapping for this planet
+            if(isset($planetMapping[$planet])) {
+                // Replace the planet key using the mapping
+                $newPlanet = $planetMapping[$planet];
+                $mappedKeys[$newPlanet] = $karaka;
+            } else {
+                // If there's no mapping, keep the original key
+                $mappedKeys[$planet] = $karaka;
+            }
+        }
+    
+        return $mappedKeys;
+    }
     /**
      * Get chara karaka.
      * 
@@ -41,7 +133,7 @@ class Analysis
      * @see Maharishi Parashara. Brihat Parashara Hora Shastra. Chapter 32, Verse 13-17.
      * @see Maharishi Jaimini. Jaimini Upadesha Sutras. Chapter 1, Quarter 1, Verse 11-18
      */
-    public function getCharaKaraka($reverse = false, $system = Biblio::AUTHOR_PARASHARA)
+    public function getCharaKaraka($reverse = false, $system = Biblio::AUTHOR_JAIMINI)
     {
         $grahas = $this->getData()['graha'];
         unset($grahas[Graha::KEY_KE]);

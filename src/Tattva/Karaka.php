@@ -147,4 +147,39 @@ class Karaka
         
         return $list;
     }
+
+    /**
+     * Get list of karaka keys depending on the system.
+     * 
+     * @param string $system
+     * @return array
+     */
+    public static function listKarakaKeys($system = Biblio::BOOK_BPHS)
+    {
+        // Get the full list of karakas
+        $list = self::$karaka;
+        // Remove the last element from the array
+        $keys = array_keys($list);
+        array_pop($keys);
+        
+        $systemPrepare = strtolower($system);
+        
+        // Depending on the system, remove certain keys
+        switch ($systemPrepare) {
+            case Biblio::AUTHOR_JAIMINI:
+            case Biblio::BOOK_US:
+                // Find the index of the KEY_PITRU and unset it
+                if (($key = array_search(self::KEY_PITRU, $keys)) !== false) {
+                    unset($keys[$key]);
+                }
+                break;
+            case Biblio::AUTHOR_PARASHARA:
+            case Biblio::BOOK_BPHS:
+            default: 
+        }
+        
+        // Return the keys
+        return $keys;
+    }
+
 }
