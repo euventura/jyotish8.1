@@ -41,7 +41,7 @@ abstract class AbstractGanita
      */
     public function setOptionAyanamsha($ayanamsha)
     {
-        if (key_exists($ayanamsha, $this->inputAyanamsha)) {
+        if (array_key_exists($ayanamsha, Ayanamsha::$ayanamsha)) {
             $this->optionAyanamsha = $ayanamsha;
         } else {
             throw new Exception\InvalidArgumentException("The ayanamsha '$ayanamsha' is not defined.");

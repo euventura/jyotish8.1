@@ -190,7 +190,7 @@ class Nabhasha extends YogaBase
         $rashis = array_keys(Rashi::listRashiByFeature('bhava', $rashiBhava));
         $dataGraha = $this->getData()['graha'];
         
-        foreach ($dataGraha as $key => $data) {
+        foreach ($dataGraha as $data) {
             if (in_array($data['rashi'], $rashis)) {
                 continue;
             } else {
@@ -319,7 +319,7 @@ class Nabhasha extends YogaBase
                 }
                 
                 $grahaRashi = [];
-                foreach ($dataGraha as $key => $data) {
+                foreach ($dataGraha as $data) {
                     if (in_array($data['rashi'], $akritiRashi)) {
                         $grahaRashi[] = $data['rashi'];
                         continue;
@@ -611,8 +611,8 @@ class Nabhasha extends YogaBase
         }
         
         $no = 0;
-        foreach ($akritiRashi as $index => $rashis) {
-            foreach ($dataGraha as $key => $data) {
+        foreach ($akritiRashi as $rashis) {
+            foreach ($dataGraha as $data) {
                 if (in_array($data['rashi'], $rashis)) {
                     continue;
                 } else {

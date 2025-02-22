@@ -306,7 +306,7 @@ class Ch extends GrahaObject
         $lonCh = $this->getEnvironment()['graha'][Graha::KEY_CH]['longitude'];
         $lonSy = $this->getEnvironment()['graha'][Graha::KEY_SY]['longitude'];		
 
-        if ($lonCh < $lonSy) $lonCh = $lonCh + 360;
+        if ($lonCh < $lonSy) $lonCh += 360;
 
         $tithiUnits = Math::partsToUnits(($lonCh - $lonSy), 12);
 

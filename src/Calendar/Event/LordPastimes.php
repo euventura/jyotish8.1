@@ -138,7 +138,7 @@ class LordPastimes extends EventBase
         ],
         [
             self::COL_NAME => 'Go Puja',
-            self::COL_NAME => 8,
+            self::COL_MASA => 8,
             self::COL_TITHI => 16,
         ],
         [

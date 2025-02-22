@@ -7,6 +7,7 @@
 namespace Jyotish\Base\Import;
 
 use Jyotish\Base\Data;
+use Jyotish\Bhava\Bhava;
 use Jyotish\Graha\Graha;
 use Jyotish\Ganita\Math;
 

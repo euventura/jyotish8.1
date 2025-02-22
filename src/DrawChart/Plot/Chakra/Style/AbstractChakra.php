@@ -189,7 +189,7 @@ abstract class AbstractChakra
             $bhavaType = $this->getBhavaType($disposition);
             $countKey = $this->getCountKey(count($grahas), $bhavaType);
             $i = 0;
-            foreach ($grahas as $key => $graha) {
+            foreach ($grahas as $graha) {
                 $x = $this->grahaPointsBase[$bhavaType][$countKey][$i * 2];
                 $y = $this->grahaPointsBase[$bhavaType][$countKey][$i * 2 + 1];
                 $factor = round($options['chakraSize'] / $this->chakraDivider);

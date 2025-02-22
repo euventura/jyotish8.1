@@ -147,7 +147,7 @@ class Arudha
         $lngArudha = $lngRuler + $lngDiff;
         
         if ($lngArudha >= 360) {
-            $lngArudha = $lngArudha - 360;
+            $lngArudha -= 360;
         } elseif ($lngArudha < 0) {
             $lngArudha = 360 + $lngArudha;
         }

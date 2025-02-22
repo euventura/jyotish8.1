@@ -63,7 +63,7 @@ class YogaBase
         foreach ($Graha1->grahaSwa as $key => $data) {
             $rashi1Swa[] = $data['rashi'];
         }
-        foreach ($Graha2->grahaSwa as $key => $data) {
+        foreach ($Graha2->grahaSwa as $data) {
             $rashi2Swa[] = $data['rashi'];
         }
         

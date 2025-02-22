@@ -109,7 +109,7 @@ trait GrahaEnvironment
         if ($rashi == $this->grahaMool['rashi'] && $degree >= $this->grahaMool['start'] && $degree < $this->grahaMool['end'])
             return Rashi::GRAHA_MOOL;
         
-        foreach ($this->grahaSwa as $key => $value) {
+        foreach ($this->grahaSwa as $value) {
             if ($rashi == $value['rashi'] && $degree >= $value['start'] && $degree < $value['end'])
                 return Rashi::GRAHA_SWA;
         }
@@ -119,13 +119,13 @@ trait GrahaEnvironment
         switch ($relation[$dispositor]) {
             case 1:
                 return Rashi::GRAHA_FRIEND;
-                break;
             case 0:
                 return Rashi::GRAHA_NEUTRAL;
-                break;
             case -1:
                 return Rashi::GRAHA_ENEMY;
         }
+        
+        return Rashi::GRAHA_NEUTRAL; 
     }
     
     /**
@@ -584,9 +584,9 @@ trait GrahaEnvironment
                 $G->setEnvironment($this->Data);
 
                 if ($G->grahaCharacter == Graha::CHARACTER_SHUBHA)
-                    $benefic = $benefic + 1;
+                    $benefic += 1;
                 else
-                    $malefic = $malefic + 1;
+                    $malefic += 1;
             }
         }
         

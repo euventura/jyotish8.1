@@ -76,7 +76,7 @@ class AngaDefiner
         $lngCh = $this->getData()['graha'][Graha::KEY_CH]['longitude'];
         $lngSy = $this->getData()['graha'][Graha::KEY_SY]['longitude'];		
 
-        if ($lngCh < $lngSy) $lngCh = $lngCh + 360;
+        if ($lngCh < $lngSy) $lngCh += 360;
 
         $tithiUnits = Math::partsToUnits(($lngCh - $lngSy), $unit);
         $tithiObject = Tithi::getInstance($tithiUnits['units']);
@@ -207,7 +207,7 @@ class AngaDefiner
         $lngSum = $lngCh + $lngSy;
 
         if ($lngSum > 360) {
-            $lngSum = $lngSum - 360;
+            $lngSum -= 360;
         }
 
         $yogaUnits = Math::partsToUnits($lngSum, $unit);

@@ -27,5 +27,5 @@ class Y26 extends YogaObject
      * 
      * @var string
      */
-    protected $yogaDeva = Deva::DEVA_VISHVEDEVA;
+    protected $yogaDeva = Deva::DEVA_VISHVADEVA;
 }
